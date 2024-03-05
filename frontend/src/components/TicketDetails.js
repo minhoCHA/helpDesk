@@ -60,13 +60,12 @@ function TicketDetails({ ticket, handleClose, refreshTickets }) {
     transform: "translate(-50%, -50%)",
     display: "flex",
     flexDirection: "column",
-    m: 4,
     minWidth: 300,
     maxWidth: 600, // Adjusted for better readability
     bgcolor: "background.paper",
     borderRadius: 2,
     boxShadow: 24,
-    p: 3,
+    p: 2,
     overflow: "hidden",
   };
 
