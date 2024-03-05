@@ -39,11 +39,10 @@ node app.js
 
 Access the application via: http://localhost:3000.
 
-Built With
-React - A declarative, efficient, and flexible JavaScript library for building user interfaces.
-Node.js - A JavaScript runtime built on Chrome's V8 JavaScript engine.
-Express - A fast, unopinionated, minimalist web framework for Node.js.
-Material-UI - React components for faster and easier web development.
-
-Authors
-Minho Cha
+Built With<br>
+React - A declarative, efficient, and flexible JavaScript library for building user interfaces.<br>
+Node.js - A JavaScript runtime built on Chrome's V8 JavaScript engine.<br>
+Express - A fast, unopinionated, minimalist web framework for Node.js.<br>
+Material-UI - React components for faster and easier web development.<br>
+<br>
+Authors - Minho Cha
