@@ -8,13 +8,17 @@ import {
   TableHead,
   TableRow,
   Paper,
+  Modal,
   Box,
   Typography,
   Tooltip,
 } from "@mui/material";
+import TicketDetails from "./TicketDetails";
 
 function TicketList() {
   const [tickets, setTickets] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [selectedTicket, setSelectedTicket] = useState(null);
 
   useEffect(() => {
     fetchTickets();
@@ -24,6 +28,13 @@ function TicketList() {
     const response = await axios.get("http://localhost:3001/api/tickets");
     setTickets(response.data);
   };
+
+  const handleOpen = (ticket) => {
+    setSelectedTicket(ticket);
+    setOpen(true);
+  };
+
+  const handleClose = () => setOpen(false);
 
   return (
     <Box>
@@ -42,7 +53,11 @@ function TicketList() {
           </TableHead>
           <TableBody>
             {tickets.map((ticket) => (
-              <TableRow key={ticket.id} hover>
+              <TableRow
+                onClick={() => handleOpen(ticket)}
+                key={ticket.id}
+                hover
+              >
                 <TableCell component="th" scope="row">
                   {ticket.id}
                 </TableCell>
@@ -60,6 +75,22 @@ function TicketList() {
           </TableBody>
         </Table>
       </TableContainer>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box>
+          {selectedTicket && (
+            <TicketDetails
+              ticket={selectedTicket}
+              handleClose={handleClose}
+              refreshTickets={fetchTickets}
+            />
+          )}
+        </Box>
+      </Modal>
     </Box>
   );
 }
