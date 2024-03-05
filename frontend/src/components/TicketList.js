@@ -15,6 +15,12 @@ import {
 } from "@mui/material";
 import TicketDetails from "./TicketDetails";
 
+const truncate = (str, num) => {
+  if (str.length <= num) return str;
+  return str.slice(0, num) + "...";
+};
+
+
 function TicketList() {
   const [tickets, setTickets] = useState([]);
   const [open, setOpen] = useState(false);
@@ -37,12 +43,12 @@ function TicketList() {
   const handleClose = () => setOpen(false);
 
   return (
-    <Box>
-      <Typography variant="h4">Your support requests</Typography>
-      <TableContainer component={Paper}>
-        <Table aria-label="simple table">
+    <Box sx={{ maxWidth: '90vw', margin: 'auto', mt: 4 }}>
+      <Typography variant="h4" sx={{ mb: 4 }}>Your support requests</Typography>
+      <TableContainer component={Paper} sx={{ boxShadow: 'none', border: '1px solid #e0e0e0' }}>
+        <Table aria-label="ticket table" sx={{ minWidth: 650 }}>
           <TableHead>
-            <TableRow>
+            <TableRow sx={{ '& .MuiTableCell-head': { fontWeight: 'bold', borderBottom: '2px solid #000' } }}>
               <TableCell>ID</TableCell>
               <TableCell align="right">Name</TableCell>
               <TableCell align="right">Email</TableCell>
@@ -57,6 +63,9 @@ function TicketList() {
                 onClick={() => handleOpen(ticket)}
                 key={ticket.id}
                 hover
+                sx={{ 
+                  cursor: 'pointer',
+                  '&:last-child td, &:last-child th': { border: 0 } }}
               >
                 <TableCell component="th" scope="row">
                   {ticket.id}
@@ -66,7 +75,7 @@ function TicketList() {
                 <TableCell align="right">{ticket.category}</TableCell>
                 <TableCell align="right">
                   <Tooltip title={ticket.description} placement="top">
-                    <Typography>{(ticket.description, 20)}</Typography>
+                    <Typography>{truncate(ticket.description, 20)}</Typography>
                   </Tooltip>
                 </TableCell>
                 <TableCell align="right">{ticket.status}</TableCell>

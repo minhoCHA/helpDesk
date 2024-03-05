@@ -22,7 +22,21 @@ function LandingPage() {
 
   return (
     <div>
-      <Box></Box>
+      <Box
+        sx={{
+          backgroundColor: "var(--dark-cream)",
+          backgroundImage:
+            "linear-gradient(90deg, rgba(27, 27, 27, .55), transparent), url(https://assets-global.website-files.com/64ac3a433180d94638a63ead/64b8aac1dbf5a8888f134985_ATF-Woman-Smile-Phone.jpg)",
+          backgroundSize: "auto, cover",
+          backgroundPosition: "0 0, 50%",
+          height: "51.5vh",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          borderBottomRightRadius: "60px",
+          borderBottomLeftRadius: "60px",
+        }}
+      ></Box>
       <Box sx={{ flexGrow: 1, textAlign: "center", mt: 8 }}>
         <Typography variant="h4" gutterBottom>
           Contact Zealthy Support
@@ -31,6 +45,16 @@ function LandingPage() {
           {categories.map((category) => (
             <Grid item key={category}>
               <Button
+                sx={{
+                  backgroundColor: "#00531b",
+                  "&:hover": {
+                    backgroundColor: "#027c2a",
+                  },
+                  color: "#fff",
+                  marginLeft: "10px",
+                  borderRadius: "100px",
+                  minWidth: "120px",
+                }}
                 variant="contained"
                 onClick={() => handleCategorySelect(category)}
               >

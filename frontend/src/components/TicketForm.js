@@ -75,9 +75,30 @@ function TicketForm() {
     setSnackbarOpen(false);
   };
 
+  const style = {
+    "& label.Mui-focused": {
+      color: "#027c2a",
+    },
+    "& .MuiOutlinedInput-root": {
+      "&.Mui-focused": {
+        "& .MuiOutlinedInput-notchedOutline": {
+          borderColor: "#027c2a",
+        },
+      },
+    },
+  };
+
   return (
     <Container component="main" maxWidth="sm" sx={{ mt: 8, mb: 8 }}>
       <Box
+        sx={{
+          backgroundColor: "#fff6e9",
+          padding: 3,
+          borderRadius: 2,
+          boxShadow: 3,
+          "& .MuiTextField-root": { m: 1, width: "100%" },
+          "& .MuiButton-root": { m: 1 },
+        }}
         component="form"
         noValidate
         autoComplete="off"
@@ -87,6 +108,7 @@ function TicketForm() {
           Category: {ticket.category}
         </Typography>
         <TextField
+          sx={style}
           label="Name"
           name="name"
           value={ticket.name}
@@ -94,6 +116,7 @@ function TicketForm() {
           required
         />
         <TextField
+          sx={style}
           label="Email"
           name="email"
           type="email"
@@ -102,6 +125,7 @@ function TicketForm() {
           required
         />
         <TextField
+          sx={style}
           label="Description"
           name="description"
           multiline
@@ -110,9 +134,28 @@ function TicketForm() {
           onChange={handleChange}
           required
         />
-        <Button type="submit" variant="contained" disabled={isSubmitting}>
+        <Button
+          sx={{
+            backgroundColor: "#00531b",
+            "&:hover": {
+              backgroundColor: "#027c2a",
+            },
+            color: "#fff",
+            borderRadius: "100px",
+            minWidth: "120px",
+          }}
+          type="submit"
+          variant="contained"
+          disabled={isSubmitting}
+        >
           {isSubmitting ? "Submitting..." : "Submit Ticket"}
         </Button>
+        <Snackbar
+          open={snackbarOpen}
+          autoHideDuration={6000}
+          onClose={handleCloseSnackbar}
+          message={snackbarMessage}
+        />
       </Box>
     </Container>
   );
