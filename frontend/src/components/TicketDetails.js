@@ -11,11 +11,15 @@ import {
 import CloseIcon from "@mui/icons-material/Close";
 import axios from "axios";
 
+// TicketDetails component manages the display and update of individual ticket details
 function TicketDetails({ ticket, handleClose, refreshTickets }) {
+  // State management for response text and ticket status
   const [response, setResponse] = useState("");
   const [status, setStatus] = useState(ticket.status);
 
+  // Function to handle the submission of a response or status update
   const submitResponse = async () => {
+    // Confirm submission if response is empty
     if (!response) {
       const isConfirmed = window.confirm(
         "Are you sure you want to submit it without a response?"
@@ -23,13 +27,14 @@ function TicketDetails({ ticket, handleClose, refreshTickets }) {
       if (!isConfirmed) return; // If user clicks "No", then do not proceed
     }
 
+    // Attempt to update the ticket status
     try {
       await axios.patch(
         `http://localhost:3001/api/tickets/${ticket.id}/status`,
         { status }
       );
       refreshTickets(); // Refresh the ticket list to show the updated status
-      handleClose(); // Close the modal
+      handleClose();
     } catch (error) {
       console.error("Failed to update ticket status:", error);
     }
@@ -42,7 +47,7 @@ function TicketDetails({ ticket, handleClose, refreshTickets }) {
       );
       setResponse("");
       refreshTickets(); // Refresh the ticket list to show the updated response
-      handleClose(); // Close the modal
+      handleClose();
     } catch (error) {
       console.error("Failed to submit response:", error);
     }

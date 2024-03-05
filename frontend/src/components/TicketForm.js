@@ -11,12 +11,12 @@ import {
 import axios from "axios";
 
 function TicketForm() {
-  const location = useLocation(); // Get location object
+  const location = useLocation(); // Access routing details
   const [ticket, setTicket] = useState({
     name: "",
     email: "",
     description: "",
-    category: location.state?.category || "Select a category", // Use the category passed in state, or default text
+    category: location.state?.category || "Select a category", // Initialize state with category from navigation or default text
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -33,16 +33,20 @@ function TicketForm() {
   }, [location.state?.category]); // Only re-run the effect if the category changes
 
   const handleChange = (e) => {
+    // Handle form input changes
     setTicket({ ...ticket, [e.target.name]: e.target.value });
   };
 
   const isValidEmail = (email) => {
+    // Validate email format
     return /\S+@\S+\.\S+/.test(email);
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (isSubmitting) return; // Prevent duplicate submissions
+
+    // Form validation for required fields
     if (!ticket.name || !ticket.email || !ticket.description) {
       setSnackbarMessage("All fields are required.");
       setSnackbarOpen(true);
@@ -54,20 +58,20 @@ function TicketForm() {
       return;
     }
 
-    setIsSubmitting(true);
+    setIsSubmitting(true); // Indicate form is submitting
     try {
       await axios.post("http://localhost:3001/api/tickets", {
         ...ticket,
         status: "new",
       });
       setSnackbarMessage("Ticket submitted successfully!");
-      setTicket({ name: "", email: "", description: "" }); // Reset form
+      setTicket({ name: "", email: "", description: "" }); // Reset form on success
     } catch (error) {
       setSnackbarMessage("Error submitting ticket. Please try again.");
       console.error("Failed to submit ticket:", error);
     } finally {
-      setIsSubmitting(false);
-      setSnackbarOpen(true);
+      setIsSubmitting(false); // Reset submission status
+      setSnackbarOpen(true); // Show feedback message
     }
   };
 

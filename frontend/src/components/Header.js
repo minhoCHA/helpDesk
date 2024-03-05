@@ -2,8 +2,10 @@ import React from "react";
 import { AppBar, Toolbar, Typography, Button, Box } from "@mui/material";
 import { Link as RouterLink } from "react-router-dom";
 
+// The Header functional component renders the navigation bar at the top of the page.
 function Header() {
   return (
+    // AppBar from Material-UI acts as a navigation header
     <AppBar
       position="static"
       color="transparent"
